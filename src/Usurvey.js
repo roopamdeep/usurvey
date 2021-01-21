@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-var firebase = require("firebase");
+import firebase from "firebase";
 var uuid = require("uuid");
 var firebaseConfig = {
   apiKey: "AIzaSyDIqh9Fak7sADk2aQk_S7g0v4AFsNV68a8",
@@ -8,9 +8,10 @@ var firebaseConfig = {
   projectId: "usurvey-f281b",
   storageBucket: "usurvey-f281b.appspot.com",
   messagingSenderId: "1014496046992",
-  appId: "1:1014496046992:web:8d38dfd3a34fe6bc2e4d15",
-  measurementId: "G-4V2T9NSEH1",
 };
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 class Usurvey extends Component {
   nameSubmit(event) {
     var studentName = this.refs.name.value;
@@ -27,7 +28,9 @@ class Usurvey extends Component {
     } else if (event.target.name === "answer3") {
       answers.answer3 = event.target.value;
     }
-    this.setState({ answers });
+    this.setState({ answers }, function () {
+      console.log(answers);
+    });
   }
   questionSubmit() {
     firebase
@@ -69,7 +72,7 @@ class Usurvey extends Component {
               type="text"
               placeholder="Enter Name"
               ref="name"
-            ></input>
+            />
           </form>
         </div>
       );
@@ -96,24 +99,24 @@ class Usurvey extends Component {
               React
               <input
                 type="radio"
-                name="answer2"
+                name="answer1"
                 value="Javascript"
                 onChange={this.answerSelected}
               />
               JavaScript
               <input
                 type="radio"
-                name="answer3"
+                name="answer1"
                 value="Typescript"
                 onChange={this.answerSelected}
-              />{" "}
+              />
               TypeScript
             </div>
             <div className="card">
               <label>You are :</label>
               <input
                 type="radio"
-                name="answer1"
+                name="answer2"
                 value="Student"
                 onChange={this.answerSelected}
               />
@@ -127,19 +130,43 @@ class Usurvey extends Component {
               Employee
               <input
                 type="radio"
-                name="answer3"
+                name="answer2"
                 value="Freelancer"
                 onChange={this.answerSelected}
               />
               FreeLancer
+            </div>
+            <div className="card">
+              <label>Which job would you prefer?</label>
+              <input
+                type="radio"
+                name="answer3"
+                value="Full"
+                onChange={this.answerSelected}
+              />
+              Full-Time
+              <input
+                type="radio"
+                name="answer3"
+                value="Full"
+                onChange={this.answerSelected}
+              />
+              Part-Time
+              <input
+                type="radio"
+                name="answer3"
+                value="Contract"
+                onChange={this.answerSelected}
+              />
+              Contract
             </div>
             <input className="feedback-button" type="submit" value="submit" />
           </form>
         </div>
       );
     } else if (
-      this.state.isSubmitted === true &&
-      this.state.studentName !== ""
+      this.state.studentName !== "" &&
+      this.state.isSubmitted === true
     ) {
       studentName = (
         <h1>Thanks {this.state.studentName} for completing our survey!</h1>
