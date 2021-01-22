@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ullIt is a simple survey app which takes a username and have designed three sets of questions for a user and store that results in database. Important thing her is uniqueness where I used uuid so that one user does not over ride other users answers. Have directly interacted with the database and amended few rules in the firebase such as auth !== null. 
 
 ## Available Scripts
 
